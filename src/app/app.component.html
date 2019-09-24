@@ -1,21 +1,195 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light mynav">
+  <a class="navbar-brand text-danger" href="#">Zappfresh</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-<router-outlet></router-outlet>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{city | uppercase}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#" *ngFor="let i of citys" (click)="getcity(i)">{{i | uppercase}}</a>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search Your Dish" aria-label="Search" *ngIf="search">
+
+        <i class="fa fa-search fa-1x mx-2" aria-hidden="true" (click)="searchbar()"></i>
+        <i class="fa fa-bars mx-2" aria-hidden="true"></i>
+        <i class="fa fa-shopping-cart mx-2" aria-hidden="true"></i>
+      </form>
+  </div>
+</nav>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 pt-5 text-center">
+      <!-- select address detail div -->
+        <div class="row backcolor">
+          <div class="col-sm-10 address">
+            <div class="row" (click)="hiddeaddress()">
+                <i class="fa fa-map-marker mr-2" aria-hidden="true"></i> 
+              <h2 class="d-inline" id="deliveryaddress">Select Your Delivery Address</h2>
+            
+            </div>
+            <div class="container mt-3" *ngIf="addflag">
+                <div class="row ml-4 addressbtn">
+                    <button class='btn {{colora}} mr-3' (click)="isselected('work')" > <i class="fa fa-briefcase" aria-hidden="true"></i> WORK</button>
+                    <button class='btn {{colorb}} mr-3' (click)="isselected('home')" ><i class="fa fa-home" aria-hidden="true"></i> HOME</button>
+                    <button class='btn {{colorc}} mr-3' (click)="isselected('addnew')" ><i class="fa fa-plus" aria-hidden="true"></i> ADD NEW</button>
+
+                    <p class='text-secondary text-justify mt-2' *ngIf="work">Shankey Ghandhi - 8292299292<br>
+                        2662, NA, Haryana, Gurgaon</p>
+                    <p class='text-secondary text-justify mt-2' *ngIf="home">Gautam - 8292299292<br>
+                          Block E ,H.No. 102, Haryana, Gurgaon</p>
+                    <input class="form-control mt-2" type="text" *ngIf="addnew" placeholder="Enter Your Full Address">
+                </div>
+                
+            </div>
+            
+            
+          </div>
+          <div class="col-sm-2 text-right dropdownarrow" (click)="hiddeaddress()">
+            <i class="fa fa-angle-down" aria-hidden="true" *ngIf="!addflag"></i>
+            <i class="fa fa-angle-up" aria-hidden="true" *ngIf="addflag"></i>
+          </div>
+        </div>
+        <!-- end select address detail div -->
+
+        <!-- payment detail div -->
+        <div class="row backcolor">
+            <div class="col-sm-10 address">
+                <div class="row" (click)="hidepayment()">
+                    <i class="fa fa-credit-card mr-2" aria-hidden="true"></i>
+                  <h2 class="d-inline " id="deliveryaddress">Choose Your Payment Mode</h2>
+                
+                </div>
+                <div class="container mt-3" *ngIf="paymentflag">
+                    <div class="row ml-4 addressbtn">
+                      <div class="container text-left">
+                          <input type="radio" name="payment" value="card" (click)="notwallets()"> Credit/Debit Card <br>
+                          <input type="radio" name="payment" value="netbanking"(click)="notwallets()"> Netbanking<br>
+                          <input type="radio" name="payment" value="cash"(click)="notwallets()"> Cash On Delivery<br> 
+                          <input type="radio" name="payment" value="wallet" (click)="wallets()"> Wallets<br> 
+                          <div class="row" *ngIf="wallet">
+                            <img class="d-inline mr-3 mt-3" style="width:105px; height:40px" src="assets/Paytm_logo.jpg" alt="paytm">
+                            <img class="d-inline mr-3 mt-1 " style="width:105px; height:60px" src="assets/mobikwik.png" alt="mobikwik">
+                            <img class="d-inline mr-3 " style="width:105px; height:70px" src="assets/ola-money.jpeg" alt="ola money">
+                          </div>
+                      </div>
+                        <button class="btn btn-danger mt-2">Make Payment</button>
+                    </div>
+                    
+                </div>
+                
+                
+              </div>
+              <div class="col-sm-2 text-right dropdownarrow" (click)="hidepayment()">
+                <i class="fa fa-angle-down" aria-hidden="true" *ngIf="!paymentflag"></i>
+                <i class="fa fa-angle-up" aria-hidden="true" *ngIf="paymentflag"></i>
+              </div>
+        </div>
+        <!-- end payment detail div -->
+    </div>
+
+
+    <!-- right handside menu details -->
+    <div class="col-md-6 pt-5 text-center">
+      <div class="container ">
+          
+        
+          <div class="row menuheading">
+              <h4 class="text-left pl-4">Selected Items</h4>
+          </div>
+
+
+          <!-- dish details section -->
+          <div class="row dishdetails mb-2 backcolor">
+            
+              <div class="col-sm-8 ">
+                <h3 class="text-dark text-left">Catla Fish - Cut</h3>
+                <p class="text-secondary"> Qty: 500 gms Slot: 19-08-2019 by 08-11 AM</p>
+                <p class="text-secondary text-left"> Customize <i class="fa fa-chevron-down text-danger" aria-hidden="true"></i></p>
+              </div>
+              <div class="col-sm-4 text-right">
+                <h4 class="text-center">₹ {{amount}}</h4>
+                <button class="btn btn-outline-danger mt-4  qtybtn" (click)="lessqty()"><i class="fa fa-minus text-danger" aria-hidden="true"></i></button>
+                <button class="btn btn-outline-danger mt-4  qtybtn">{{qty}}</button>
+                <button class="btn btn-outline-danger mt-4 mr-4 qtybtn" (click)="addqty()"><i class="fa fa-plus text-danger" aria-hidden="true"></i></button>
+              </div>
+            
+          </div>
+          <!-- end dish details section -->
+
+          <!-- similar items -->
+          <div class="row similaritems backcolor">
+            <h3 class="text-dark">---------You May Also Like-----------</h3>
+            <div class="similar mt-3">
+              <div class="col-sm-3 d-inline" style="float:left;">
+                <img src="assets/ChickenTikkaAchari.jpg" alt="" style="width:130px;height: 112px;">
+              </div>
+              <div class="col-sm-6 pl-4 d-inline text-left" style="float:left;">
+                <h5 style="">Chicken Achari Tikka (Boneless Thigh)</h5>
+                <button class="btn btn-outline-dark " style="float:right;" >ADD</button>
+                <p class="text-secondary">₹ 198</p>
+              </div>
+              <div class="col-sm-3 d-inline pr-5" style="float:left;">
+                <img src="assets/chickenacharitikka.jpg" alt="" style="width:130px;height: 112px;">
+              </div>
+
+            </div>
+            
+          </div>
+          <!-- end similar items -->
+
+          <!-- coupoun section -->
+          <div class="row coupon backcolor mt-2">
+            <div class="col-sm-8 text-left">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" (click)="ZappCredit()">
+                    <label class="form-check-label" for="defaultCheck1">
+                      Use ZappCredit
+                    </label>
+                   
+                  </div>
+                  <div class="mt-3" (click)="applycoupon()"><i class="fa fa-certificate" aria-hidden="true" ></i> <p class="d-inline text-secondary ml-2" style="font-size:15px;">Apply Coupon</p>
+                  </div>
+                  <input type="text" class="form-control" *ngIf="apply; else false" placeholder="FIRST50">
+                  
+            </div>
+            <div class="col-sm-4">
+                <p class="text-dark ">Usable Balance: <b class="text-danger">{{zappcerdit}}</b></p>    
+                <div class="text-danger" (click)="applycoupon()" ><i class="fa fa-angle-right" aria-hidden="true" *ngIf="!apply"></i><i class="fa fa-angle-down" aria-hidden="true" *ngIf="apply"></i></div>
+            </div>
+          </div>
+          <!-- end coupoun section -->
+          <div class="row coupon backcolor mt-2">
+              <div class="col-sm-8 text-left">
+                  <h6 class="text-dark">Total</h6>
+                  <h6 class="text-danger">Taxes and other charges <i class="fa fa-question-circle-o" aria-hidden="true"></i></h6>
+                  <hr />
+              </div>
+              
+              <div class="col-sm-4 text-right">
+                  <h6 class="text-secondary">₹ {{amount}}.00</h6>
+                  <h6 class="text-secondary">₹ 50.00</h6>
+                  <hr />
+              </div>
+             
+
+              <div class="col-sm-8 text-left"><h6 class="text-dark">Payable amount</h6></div>
+              <div class="col-sm-4 text-right"><h6 class="text-dark">₹ {{totalamout}}.00</h6></div>
+              
+            </div>
+      </div>
+      
+    </div>
+    <!-- end right handside menu details -->
+  </div>
+</div>

@@ -1,0 +1,65 @@
+.backcolor{
+    background: rgb(255, 255, 255);
+    border-radius: 8px;
+    box-shadow: 0px 8px 38px 0px rgba(0, 0, 0, 0.07);
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left:10px;
+    margin-bottom:10px;
+}
+.mynav{
+    background: rgb(255, 255, 255);
+    border-radius: 8px;
+    box-shadow: 0px 8px 38px 0px rgba(0, 0, 0, 0.09);
+}
+.address i{
+    font-size: 24px;
+}
+#deliveryaddress{
+    font-size: 24px;
+}
+.dropdownarrow{
+    font-size: 24px;
+}
+.addressbtn i{
+    font-size:15px;
+    margin: 3px;
+
+}
+.dishdetails h3{
+    font-size: 22px;
+}
+.menuheading{
+    margin-bottom: 5px;
+    
+    background: rgb(242, 248, 252);
+    border-radius: 8px 8px 0px 0px;
+}
+.menuheading h4{
+    margin-top: 8px;
+   font-size: 22px;
+}
+.dishdetails{
+    margin-bottom: 8px;
+}
+.dishdetails h4{
+    font-size: 20px;
+}
+.qtybtn{
+    width: 30px;
+    height: 30px;
+    font-size: 10px !important;
+    
+}
+.qtybtn i{
+    font-size: 10px !important;
+}
+.similaritems{
+    padding-right: inherit;
+    padding-left: initial;
+}
+
+.similaritems h3{
+    font-size: 20px;
+    margin: auto;
+}
